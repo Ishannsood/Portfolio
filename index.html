@@ -33,6 +33,39 @@
             --border: #2a2a30;
             --font-display: 'Syne', sans-serif;
             --font-body: 'Source Serif 4', Georgia, serif;
+
+        /* LIGHT MODE */
+        [data-theme="light"] {
+            --bg: #f8f8f6;
+            --fg: #1a1a1c;
+            --muted: #6b6b76;
+            --card: #ffffff;
+            --border: #e0e0e6
+        }
+
+        /* ACCENT — BLUE */
+        [data-accent="blue"] {
+            --accent: #60a5fa;
+            --accent2: #38bdf8
+        }
+
+        /* ACCENT — ORANGE */
+        [data-accent="orange"] {
+            --accent: #fb923c;
+            --accent2: #fbbf24
+        }
+
+        /* ACCENT — PURPLE */
+        [data-accent="purple"] {
+            --accent: #c084fc;
+            --accent2: #e879f9
+        }
+
+        /* ACCENT — GREEN (default, explicit) */
+        [data-accent="green"] {
+            --accent: #c9f76f;
+            --accent2: #5eead4
+        }
             --font-mono: 'JetBrains Mono', monospace;
         }
 
@@ -59,6 +92,64 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
             background-repeat: repeat;
             opacity: .35
+        }
+
+        /* LIGHT MODE NAV */
+        [data-theme="light"] nav {
+            background: rgba(248, 248, 246, .85)
+        }
+
+        [data-theme="light"] body::before {
+            opacity: .1
+        }
+
+        /* THEME SWITCHER */
+        .theme-controls {
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--fg);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .3s
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .accent-dots {
+            display: flex;
+            gap: .4rem;
+            align-items: center
+        }
+
+        .accent-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all .3s;
+            flex-shrink: 0
+        }
+
+        .accent-dot:hover,
+        .accent-dot.active {
+            border-color: var(--fg);
+            transform: scale(1.2)
         }
 
         /* NAV */
@@ -905,6 +996,15 @@
     <nav>
         <div class="nav-inner">
             <div class="logo"><span>Ishan</span>Sood</div>
+            <div class="theme-controls">
+                <div class="accent-dots">
+                    <div class="accent-dot active" data-color="green" style="background:#c9f76f" title="Green" onclick="setAccent('green',this)"></div>
+                    <div class="accent-dot" data-color="blue" style="background:#60a5fa" title="Blue" onclick="setAccent('blue',this)"></div>
+                    <div class="accent-dot" data-color="orange" style="background:#fb923c" title="Orange" onclick="setAccent('orange',this)"></div>
+                    <div class="accent-dot" data-color="purple" style="background:#c084fc" title="Purple" onclick="setAccent('purple',this)"></div>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Toggle light/dark">🌙</button>
+            </div>
             <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')"
                 aria-label="Menu">☰</button>
             <ul>
@@ -966,6 +1066,10 @@
 
                 </div>
                 <div class="bio-content">
+                    <div style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(22,163,74,.1);border:1px solid rgba(22,163,74,.3);border-radius:50px;padding:.5rem 1.25rem;margin-bottom:1.25rem">
+                        <span style="width:8px;height:8px;border-radius:50%;background:#4ade80;display:inline-block;animation:pulse-green 1.5s infinite;flex-shrink:0"></span>
+                        <span style="font-family:var(--font-mono);font-size:.75rem;color:#4ade80;letter-spacing:.08em;text-transform:uppercase">Available for Internships</span>
+                    </div>
                     <h3>Hello, I'm <strong>Ishan Sood</strong></h3>
                     <p>
                         I am a <strong>Computer Programming &amp; Analysis</strong> student at <strong>George Brown Polytechnic</strong> with a growing passion for <strong>data analytics</strong> and technology. My academic journey has equipped me with hands-on experience in data analysis, software development, databases, and web technologies.
@@ -1005,16 +1109,16 @@
                         style="font-family:var(--font-display);font-size:1.2rem;margin-bottom:1.25rem;color:var(--accent2)">
                         Experience</h3>
                     <div class="timeline-item">
-                        <p class="date">Nov 2024 — May 2025</p>
-                        <h4>Customer Service Representative</h4>
-                        <p class="company">Circle K — Toronto, Ontario</p>
-                        <p>Delivered prompt and friendly service to customers in a fast-paced retail environment. Handled cash transactions, processed payments, and maintained accurate till balances. Restocked shelves, managed inventory, and ensured store cleanliness standards were met. Resolved customer inquiries and complaints professionally to maintain a positive shopping experience.</p>
-                    </div>
-                    <div class="timeline-item">
                         <p class="date">May 2025 — Aug 2025</p>
                         <h4>Assembly Technician</h4>
                         <p class="company">DL Custom — Toronto, Ontario</p>
                         <p>Assembled and tested custom-built products according to technical specifications and quality standards. Performed component inspection, troubleshooting, and quality checks throughout the production process. Collaborated with team members to meet production targets while maintaining attention to detail and precision in all assembly tasks.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <p class="date">Nov 2024 — May 2025</p>
+                        <h4>Customer Service Representative</h4>
+                        <p class="company">Circle K — Toronto, Ontario</p>
+                        <p>Delivered prompt and friendly service to customers in a fast-paced retail environment. Handled cash transactions, processed payments, and maintained accurate till balances. Restocked shelves, managed inventory, and ensured store cleanliness standards were met. Resolved customer inquiries and complaints professionally to maintain a positive shopping experience.</p>
                     </div>
                 </div>
                 <div>
@@ -1281,6 +1385,32 @@
         window.addEventListener('scroll', () => {
             btt.classList.toggle('show', scrollY > 400);
         });
+
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.getAttribute('data-theme') !== 'light';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            document.getElementById('theme-btn').textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'light' : 'dark');
+        }
+
+        // Accent color
+        function setAccent(color, el) {
+            document.documentElement.setAttribute('data-accent', color);
+            document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active'));
+            el.classList.add('active');
+            localStorage.setItem('accent', color);
+        }
+
+        // Load saved preferences
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const savedAccent = localStorage.getItem('accent') || 'green';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.documentElement.setAttribute('data-accent', savedAccent);
+        if (savedTheme === 'light') document.getElementById('theme-btn').textContent = '☀️';
+        const savedDot = document.querySelector(`.accent-dot[data-color="${savedAccent}"]`);
+        if (savedDot) { document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active')); savedDot.classList.add('active'); }
 
         // Typing animation
         const phrases = ['Data Analyst', 'Problem Solver', 'Full-Stack Developer', 'Tech Enthusiast'];
