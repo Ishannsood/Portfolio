@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — Ishan Sood</title>
+    <title>Ishan Sood | Data Analyst</title>
+    <meta name="description" content="Ishan Sood — Data Analyst and Computer Programming student at George Brown Polytechnic. Turning data into insights.">
+    <meta property="og:title" content="Ishan Sood | Data Analyst">
+    <meta property="og:description" content="Portfolio of Ishan Sood — Data Analyst, developer, and problem solver based in Toronto.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text y='.9em' font-size='75' x='10'>IS</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
@@ -668,6 +673,134 @@
             letter-spacing: .04em
         }
 
+        /* TYPING ANIMATION */
+        .typing-text {
+            font-family: var(--font-mono);
+            font-size: .9rem;
+            color: var(--accent2);
+            letter-spacing: .08em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeUp .8s .4s forwards;
+            min-height: 1.4em
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--accent2);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink .7s infinite
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1 }
+            50% { opacity: 0 }
+        }
+
+        /* OPEN TO WORK BADGE */
+        .profile-photo-wrap {
+            position: relative;
+            display: inline-block;
+            width: 100%
+        }
+
+        .open-to-work {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #16a34a;
+            color: #fff;
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .35rem 1rem;
+            border-radius: 50px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            box-shadow: 0 4px 20px rgba(22,163,74,.4)
+        }
+
+        .open-to-work::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4ade80;
+            animation: pulse-green 1.5s infinite
+        }
+
+        @keyframes pulse-green {
+            0%, 100% { opacity: 1; transform: scale(1) }
+            50% { opacity: .6; transform: scale(1.4) }
+        }
+
+        /* BACK TO TOP */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all .3s ease;
+            box-shadow: 0 4px 20px rgba(201,247,111,.3)
+        }
+
+        #back-to-top.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        #back-to-top:hover {
+            background: #dbff8a;
+            transform: translateY(-3px)
+        }
+
+        /* ANIMATED SKILL BARS */
+        .skill-bar-fill {
+            width: 0 !important;
+            transition: width 1.2s cubic-bezier(.4,0,.2,1)
+        }
+
+        .skill-bar-fill.animate {
+            width: var(--target-width) !important
+        }
+
+        /* NAV ACTIVE UNDERLINE */
+        nav a.active {
+            color: var(--accent);
+            position: relative
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px
+        }
+
         /* FOOTER */
         footer {
             padding: 3rem clamp(1.5rem, 4vw, 4rem);
@@ -790,6 +923,7 @@
         <div class="hero-content">
             <p class="hero-tag">Welcome to my portfolio</p>
             <h1>I'm <span class="highlight">Ishan Sood</span></h1>
+            <p class="typing-text"><span id="typed"></span><span class="cursor"></span></p>
             <p>Computer Programming &amp; Analysis student at George Brown Polytechnic — turning raw data into meaningful insights and building innovative, data-driven solutions.</p>
             <div class="hero-cta">
                 <a href="#work" class="btn btn-primary">View My Work ↓</a>
@@ -827,8 +961,9 @@
             <p class="section-label">01 — About</p>
             <h2 class="section-title">Profile &amp; Bio</h2>
             <div class="profile-grid">
-                <div class="profile-photo">
+                <div class="profile-photo profile-photo-wrap">
                     <img src="Image/IMG_0351.jpg" alt="Ishan Sood" style="width:100%;height:100%;object-fit:cover;">
+                    <div class="open-to-work">Open to Work</div>
                 </div>
                 <div class="bio-content">
                     <h3>Hello, I'm <strong>Ishan Sood</strong></h3>
@@ -891,35 +1026,35 @@
                             <h4><span class="icon">📊</span> Data Analysis</h4>
                             <p style="color:var(--muted);font-size:.85rem">Python (Pandas, NumPy), Excel, Statistics, Data Cleaning</p>
                             <div class="skill-bar">
-                                <div class="skill-bar-fill" style="width:80%"></div>
+                                <div class="skill-bar-fill" style="--target-width:80%"></div>
                             </div>
                         </div>
                         <div class="skill-card">
                             <h4><span class="icon">📈</span> Data Visualization</h4>
                             <p style="color:var(--muted);font-size:.85rem">Power BI, Tableau, Matplotlib, Seaborn</p>
                             <div class="skill-bar">
-                                <div class="skill-bar-fill" style="width:72%"></div>
+                                <div class="skill-bar-fill" style="--target-width:72%"></div>
                             </div>
                         </div>
                         <div class="skill-card">
                             <h4><span class="icon">🗄️</span> Databases &amp; Querying</h4>
                             <p style="color:var(--muted);font-size:.85rem">SQL, MySQL, PostgreSQL, MongoDB</p>
                             <div class="skill-bar">
-                                <div class="skill-bar-fill" style="width:78%"></div>
+                                <div class="skill-bar-fill" style="--target-width:78%"></div>
                             </div>
                         </div>
                         <div class="skill-card">
                             <h4><span class="icon">⚡</span> Programming</h4>
                             <p style="color:var(--muted);font-size:.85rem">Python, Java, JavaScript, C#, HTML, CSS</p>
                             <div class="skill-bar">
-                                <div class="skill-bar-fill" style="width:85%"></div>
+                                <div class="skill-bar-fill" style="--target-width:85%"></div>
                             </div>
                         </div>
                         <div class="skill-card">
                             <h4><span class="icon">🛠️</span> Tools &amp; Platforms</h4>
                             <p style="color:var(--muted);font-size:.85rem">Git, Jupyter Notebook, VS Code, Excel, Jira</p>
                             <div class="skill-bar">
-                                <div class="skill-bar-fill" style="width:75%"></div>
+                                <div class="skill-bar-fill" style="--target-width:75%"></div>
                             </div>
                         </div>
                     </div>
@@ -1091,13 +1226,22 @@
         </div>
     </section>
 
+    <!-- BACK TO TOP -->
+    <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+
     <!-- FOOTER -->
     <footer>
-        <p>© 2026 Ishan Sood — Built with care.</p>
+        <div style="display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.25rem">
+            <a href="mailto:ishan.sood@georgebrown.ca" style="color:var(--muted);text-decoration:none;font-size:1.2rem;transition:color .3s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'" title="Email">✉</a>
+            <a href="https://www.linkedin.com/in/oyesood/" target="_blank" style="color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;transition:color .3s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'" title="LinkedIn">in</a>
+            <a href="https://github.com/Ishannsood" target="_blank" style="color:var(--muted);text-decoration:none;font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;transition:color .3s" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--muted)'" title="GitHub">gh</a>
+        </div>
+        <p>© 2026 Ishan Sood — Data Analyst & Developer</p>
     </footer>
 
-    <!-- SCROLL REVEAL -->
+    <!-- SCRIPTS -->
     <script>
+        // Scroll reveal
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') });
         }, { threshold: 0.1 });
@@ -1117,6 +1261,35 @@
         document.querySelectorAll('nav ul a').forEach(a => {
             a.addEventListener('click', () => document.querySelector('nav ul').classList.remove('open'));
         });
+
+        // Back to top
+        const btt = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            btt.classList.toggle('show', scrollY > 400);
+        });
+
+        // Typing animation
+        const phrases = ['Data Analyst', 'Problem Solver', 'Full-Stack Developer', 'Tech Enthusiast'];
+        let pi = 0, ci = 0, deleting = false;
+        const el = document.getElementById('typed');
+        function type() {
+            const word = phrases[pi];
+            el.textContent = deleting ? word.substring(0, ci--) : word.substring(0, ci++);
+            if (!deleting && ci === word.length + 1) { deleting = true; setTimeout(type, 1500); return; }
+            if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+            setTimeout(type, deleting ? 60 : 100);
+        }
+        setTimeout(type, 1200);
+
+        // Animate skill bars on scroll
+        const barObs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.querySelectorAll('.skill-bar-fill').forEach(b => b.classList.add('animate'));
+                }
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('.skill-card').forEach(c => barObs.observe(c));
     </script>
 </body>
 
